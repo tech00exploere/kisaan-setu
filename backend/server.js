@@ -16,10 +16,23 @@ app.use((req, res, next) => {
 // Middleware
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
-app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
-  credentials: true,
-}));
+const allowedOrigins = [
+  "http://localhost:3000",
+  process.env.CLIENT_URL?.replace(/\/$/, ""),
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 
 // Database Connection
 const mongoURI = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/supermandi';
