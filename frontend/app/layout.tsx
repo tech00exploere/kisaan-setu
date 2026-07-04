@@ -44,7 +44,7 @@ export default function RootLayout({
             `,
           }}
         />
-        <GoogleOAuthProvider clientId="675811978439-tdc597i7hnbm3i318ccumd08bgj31kji.apps.googleusercontent.com">
+        <GoogleOAuthProvider clientId="675811978439-tdc597i7hnbm3i318ccumd08bgj31kji.apps.googleusercontent.com"> 
           <SidebarProvider>{children}</SidebarProvider>
         </GoogleOAuthProvider>
       </body>
