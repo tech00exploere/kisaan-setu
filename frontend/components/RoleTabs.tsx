@@ -44,7 +44,7 @@ export default function RoleTabs({ role, setRole }: RoleTabsProps) {
         className={`px-4 py-2 rounded-md font-medium transition-all ${
           active === "farmer"
             ? "bg-emerald-600 text-white shadow-sm"
-            : "bg-slate-200 text-slate-800 hover:bg-slate-300"
+            : "bg-slate-200 text-slate-800 hover:bg-slate-300 dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-600"
         }`}
         onClick={() => switchTo("farmer")}
       >
@@ -54,7 +54,7 @@ export default function RoleTabs({ role, setRole }: RoleTabsProps) {
         className={`px-4 py-2 rounded-md font-medium transition-all ${
           active === "company"
             ? "bg-emerald-600 text-white shadow-sm"
-            : "bg-slate-200 text-slate-800 hover:bg-slate-300"
+            : "bg-slate-200 text-slate-800 hover:bg-slate-300 dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-600"
         }`}
         onClick={() => switchTo("company")}
       >
