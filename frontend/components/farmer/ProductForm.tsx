@@ -5,6 +5,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
+const PRODUCT_TYPES = [
+  "Grains",
+  "Vegetables",
+  "Fruits",
+  "Dairy",
+  "Pulses",
+  "Spices",
+  "Oilseeds",
+  "Other",
+];
+
 interface Product {
   id: string;
   type: string;
@@ -60,7 +71,23 @@ export default function ProductForm({ onAdd }: { onAdd?: (product: Product) => v
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
-      <Input name="type" placeholder="Product Type (e.g., Dairy)" value={product.type ?? ""} onChange={handleChange} required />
+      <select
+        name="type"
+        value={product.type ?? ""}
+        onChange={handleChange}
+        required
+        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        <option value="">Select Product Type</option>
+          <option value="Grains">Grains</option>
+          <option value="Vegetables">Vegetables</option>
+          <option value="Fruits">Fruits</option>
+          <option value="Dairy">Dairy</option>
+          <option value="Pulses">Pulses</option>
+          <option value="Spices">Spices</option>
+          <option value="Oilseeds">Oilseeds</option>
+          <option value="Other">Other</option>
+      </select>
       <Input name="name" placeholder="Product Name" value={product.name ?? ""} onChange={handleChange} required />
       <Input name="quantity" placeholder="Quantity (e.g., 10 kg)" value={product.quantity ?? ""} onChange={handleChange} required />
       <Input name="location" placeholder="Location" value={product.location ?? ""} onChange={handleChange} required />
