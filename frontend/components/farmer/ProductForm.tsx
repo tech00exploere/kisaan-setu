@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -17,10 +17,30 @@ interface Product {
   image?: string; // base64 data URL
 }
 
+const PREDEFINED_TYPES = [
+  "Dairy",
+  "Grains",
+  "Fruits",
+  "Vegetables",
+  "Cereals",
+  "Pulses",
+  "Spices",
+  "Oilseeds",
+  "Organic Manure",
+  "Farm Equipment",
+  "Irrigation",
+  "Animal Feed",
+  "Solar Agri",
+  "Crop Protection",
+  "Other",
+];
+
 export default function ProductForm({ onAdd }: { onAdd?: (product: Product) => void }) {
   const [product, setProduct] = useState<Partial<Product>>({});
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setProduct((prev) => ({ ...prev, [name]: value }));
   };
@@ -60,7 +80,22 @@ export default function ProductForm({ onAdd }: { onAdd?: (product: Product) => v
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
-      <Input name="type" placeholder="Product Type (e.g., Dairy)" value={product.type ?? ""} onChange={handleChange} required />
+      <select
+        name="type"
+        value={product.type ?? ""}
+        onChange={handleChange}
+        required
+        className="w-full rounded-md border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+      >
+        <option value="" disabled>
+          Select Product Type
+        </option>
+        {PREDEFINED_TYPES.map((t) => (
+          <option key={t} value={t}>
+            {t}
+          </option>
+        ))}
+      </select>
       <Input name="name" placeholder="Product Name" value={product.name ?? ""} onChange={handleChange} required />
       <Input name="quantity" placeholder="Quantity (e.g., 10 kg)" value={product.quantity ?? ""} onChange={handleChange} required />
       <Input name="location" placeholder="Location" value={product.location ?? ""} onChange={handleChange} required />
