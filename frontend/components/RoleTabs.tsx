@@ -41,20 +41,20 @@ export default function RoleTabs({ role, setRole }: RoleTabsProps) {
   return (
     <div className="flex gap-4 mb-6 justify-center">
       <button
-        className={`px-4 py-2 rounded-md font-medium transition-all ${
+        className={`px-5 py-2.5 rounded-lg font-bold transition-all cursor-pointer ${
           active === "farmer"
-            ? "bg-emerald-600 text-white shadow-sm"
-            : "bg-slate-200 text-slate-800 hover:bg-slate-300"
+            ? "bg-black text-white shadow-md hover:bg-slate-900"
+            : "bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm"
         }`}
         onClick={() => switchTo("farmer")}
       >
         Farmer Dashboard
       </button>
       <button
-        className={`px-4 py-2 rounded-md font-medium transition-all ${
+        className={`px-5 py-2.5 rounded-lg font-bold transition-all cursor-pointer ${
           active === "company"
-            ? "bg-emerald-600 text-white shadow-sm"
-            : "bg-slate-200 text-slate-800 hover:bg-slate-300"
+            ? "bg-black text-white shadow-md hover:bg-slate-900"
+            : "bg-emerald-600 text-white hover:bg-emerald-700 shadow-sm"
         }`}
         onClick={() => switchTo("company")}
       >
