@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: supermandi-backend
+    runtime: docker
+    dockerfilePath: backend-spring/Dockerfile
+    dockerContext: backend-spring
+    plan: free
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: CLIENT_URL
+        sync: false
