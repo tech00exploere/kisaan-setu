@@ -13,6 +13,8 @@ out/
 # Build output
 dist/
 build/
+target/
+*.class
 
 # Logs
 *.log

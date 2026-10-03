@@ -1,0 +1,22 @@
+services:
+  mongodb:
+    image: mongo:7
+    ports: ["27017:27017"]
+    volumes: [mongo_data:/data/db]
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+  app:
+    build: .
+    ports: ["8080:8080"]
+    depends_on:
+      mongodb: {condition: service_healthy}
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/supermandi
+      JWT_SECRET: supermandi_jwt_secret_key_please_change
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      SPRING_PROFILES_ACTIVE: dev
+volumes:
+  mongo_data:
