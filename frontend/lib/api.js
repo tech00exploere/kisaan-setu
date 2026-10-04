@@ -1,8 +1,12 @@
 // Standardized fetching utility using your NEXT_PUBLIC_API_URL
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const rawApiUrl = process.env.NEXT_PUBLIC_API_URL || "https://kisaan-setu-4exf.onrender.com/api";
+const API_URL = rawApiUrl.endsWith("/api")
+    ? rawApiUrl
+    : `${rawApiUrl.replace(/\/+$/, "")}/api`;
 
 export async function apiRequest(endpoint, options = {}) {
-    const response = await fetch(`${API_URL}${endpoint}`, {
+    const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+    const response = await fetch(`${API_URL}${cleanEndpoint}`, {
         headers: {
             'Content-Type': 'application/json',
             ...options.headers,

@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
+import axiosInstance from '@/lib/axios';
 import './messages.css';
 
 interface Message {
@@ -150,23 +151,19 @@ export default function MessagesPage() {
     const promptWithContext = `${systemInstruction} ${textToSend || 'Please analyze this attachment.'}`;
 
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/gemini`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          prompt: promptWithContext,
-          history: messages.map(m => ({ role: m.role, content: m.content })),
-          attachment: activeAttachment ? {
-            mimeType: activeAttachment.mimeType,
-            data: activeAttachment.data
-          } : undefined
-        })
+      const res = await axiosInstance.post('/gemini', {
+        prompt: promptWithContext,
+        history: messages.map(m => ({ role: m.role, content: m.content })),
+        attachment: activeAttachment ? {
+          mimeType: activeAttachment.mimeType,
+          data: activeAttachment.data
+        } : undefined
       });
 
-      const data = await res.json();
+      const data = res.data;
       const assistantMsg: Message = {
         role: 'assistant',
-        content: data.reply ?? 'No response received. Please try again.',
+        content: data.reply ?? data.answer ?? 'No response received. Please try again.',
         timestamp: getFormattedTime()
       };
       setMessages(prev => [...prev, assistantMsg]);
