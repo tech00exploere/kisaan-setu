@@ -2,8 +2,8 @@ import axiosInstance from '@/lib/axios';
 
 export interface GeminiResponse {
   reply: string;
-  answer?: string;
-  history?: { role: 'user' | 'model'; text: string }[];
+  answer: string;
+  history: { role: 'user' | 'model'; text: string }[];
 }
 
 /**
@@ -15,6 +15,22 @@ export async function askGemini(
   prompt: string,
   history: { role: 'user' | 'model'; text: string }[] = []
 ): Promise<GeminiResponse> {
-  const response = await axiosInstance.post<GeminiResponse>('/gemini', { prompt, history });
-  return response.data;
+  const response = await axiosInstance.post<{
+    reply?: string;
+    answer?: string;
+    history?: { role: 'user' | 'model'; text: string }[];
+  }>('/gemini', { prompt, history });
+
+  const replyText = response.data?.reply || response.data?.answer || '';
+  const updatedHistory = response.data?.history || [
+    ...history,
+    { role: 'user' as const, text: prompt },
+    { role: 'model' as const, text: replyText },
+  ];
+
+  return {
+    reply: replyText,
+    answer: replyText,
+    history: updatedHistory,
+  };
 }

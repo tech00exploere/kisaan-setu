@@ -19,8 +19,8 @@ export default function CustomerCareChat() {
     setMessages((prev) => [...prev, userMsg]);
     setLoading(true);
     try {
-      const { answer, history } = await askGemini(input, messages);
-      const aiMsg: Message = { role: "model", text: answer };
+      const { answer } = await askGemini(input, messages);
+      const aiMsg: Message = { role: "model", text: answer || "No response received." };
       setMessages((prev) => [...prev, aiMsg]);
     } catch (err) {
       console.error(err);
