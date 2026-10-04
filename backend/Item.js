@@ -1,3 +1,4 @@
+//mongoose scheme
 const mongoose = require('mongoose');
 
 const itemSchema = new mongoose.Schema({
