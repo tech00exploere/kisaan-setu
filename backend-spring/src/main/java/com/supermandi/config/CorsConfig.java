@@ -23,17 +23,7 @@ public class CorsConfig implements WebMvcConfigurer {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        List<String> origins;
-        if (allowedOriginsConfig == null || allowedOriginsConfig.isBlank() || "*".equals(allowedOriginsConfig.trim())) {
-            origins = List.of("*");
-        } else {
-            origins = Arrays.stream(allowedOriginsConfig.split(","))
-                    .map(String::trim)
-                    .filter(s -> !s.isEmpty())
-                    .toList();
-        }
-
-        configuration.setAllowedOriginPatterns(origins);
+        configuration.addAllowedOriginPattern("*");
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
