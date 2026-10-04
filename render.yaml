@@ -18,4 +18,4 @@ services:
       - key: GEMINI_API_KEY
         sync: false
       - key: CLIENT_URL
-        sync: false
+        value: "*"
