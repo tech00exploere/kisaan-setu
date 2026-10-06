@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 export type UserRole = "farmer" | "buyer" | "company";
-
+//change made
 export interface IUser extends Document {
   name: string;
   email: string;
