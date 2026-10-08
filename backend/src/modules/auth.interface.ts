@@ -4,7 +4,7 @@ export interface RegisterInput {
   password: string;
   phone: string;
   role: "farmer" | "buyer" | "company";
-}
+}//jid
 
 export interface LoginInput {
   email: string;   
